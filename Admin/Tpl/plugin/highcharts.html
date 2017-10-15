@@ -1,0 +1,53 @@
+<script>
+    var chart = function (id, xAxis, data, option, type) {
+        return new Highcharts.Chart({
+            chart: {
+                type: type || 'line',
+                renderTo: id
+            },
+            exporting: {
+                filename: (option.export && option.export.filename) ? option.export.filename : 'chart',
+                buttons: {
+                    contextButton: {
+                        menuItems: [{
+                            text: '导出Excel',
+                            onclick: function () {
+                                Highcharts.post('http://export.hcharts.cn/cvs.php', {
+                                    csv: this.getCSV()
+                                });
+                            },
+                            separator: false
+                        }]
+                    }
+                }
+            },
+            title: {
+                text: option.title || "Hightcharts"
+            },
+            xAxis: {
+                categories: xAxis || []
+            },
+            yAxis: {
+                title: {
+                    text: (option.y && option.y.title) ? option.y.title : ''
+                }
+            },
+            series: data,
+            credits: {
+                enabled: false
+            }
+        });
+    }
+
+    window.Charts = {
+        line: function (id, xAxis, data, option) {
+            return chart(id, xAxis, data, option, 'line');
+        },
+        column: function (id, xAxis, data, option) {
+            return chart(id, xAxis, data, option, 'column');
+        },
+        pie: function (id, data, option) {
+            return chart(id, [], data, option, 'pie');
+        }
+    }
+</script>

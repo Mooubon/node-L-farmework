@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title><%= title %></title>
+    <% include ../plugin/css-source.html %>
+</head>
+<body>
+<div id="wrapper">
+    <% include ../plugin/action.html %>
+    <div id="page-wrapper">
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header">上传</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="d12">图片</label>
+                        <div class="col-sm-10">
+                            <div class="upload-area">
+                                <div class="btn btn-default upload_btn">上传
+                                    <input type="file" name="file" id="upload" multiple="multiple" onChange="change('upload',0,0,0,0)" accept="image/*"/>
+                                </div>
+                                <div class="img-list"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header">时间</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="d12">datetime</label>
+                        <div class="col-sm-4">
+                            <input class="form-control date-packer"
+                                   onclick="WdatePicker({doubleCalendar:true,startDate:'%y-%M-%d 00:00:00',dateFmt:'yyyy-MM-dd HH:00:00',isShowClear:true})"
+                                   id="d12" type="text" readonly/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header">Uedit</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div id="container"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../plugin/js-source.html %>
+
+<script>
+    var ue = UE.getEditor('container', {
+        toolbars: [
+            [
+                'undo', 'redo', '|',
+                'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'removeformat', 'pasteplain', '|',
+                'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', '|',
+                'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+                'customstyle', 'paragraph', 'fontsize', '|',
+                'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|',
+                'link', 'unlink', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+                'simpleupload', 'emotion'
+            ]
+        ],
+//        initialFrameWidth: 750,
+        autoHeightEnabled: true,
+        autoFloatEnabled: false
+        //,iframeCssUrl: URL + '/themes/iframe.css' //给编辑区域的iframe引入一个css文件
+    });
+    ue.ready(function () {
+        ue.execCommand('drafts');
+    });
+
+
+
+</script>
+</body>
+</html>

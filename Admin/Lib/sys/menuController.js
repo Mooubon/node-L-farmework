@@ -2,8 +2,11 @@
  * Created by lvlq on 16/1/17.
  */
 
-var index = function (req, res) {
-    var adminMenu = M("admin.menu");
+var express = require("express");
+var router = express.Router();
+
+router.get("/index", function (req, res) {
+    var adminMenu = Models.admin_menu;
     adminMenu.findAll().then(function (data) {
         var relat = {};
         var rootid = 0;
@@ -31,9 +34,9 @@ var index = function (req, res) {
     }).catch(function (e) {
         res.error(111, "", e);
     });
-};
+});
 
-var add = function (req, res) {
+router.post("/add", function (req, res) {
     console.log(req.body);
     var name = req.body.name;
     var uri = req.body.uri;
@@ -42,7 +45,7 @@ var add = function (req, res) {
     var icon = req.body.icon || 0;
     var sort = req.body.sort || 0;
 
-    var adminMenu = M("admin.menu");
+    var adminMenu = Models.admin_menu;
     adminMenu.create({
         name: name,
         uri: uri,
@@ -55,12 +58,12 @@ var add = function (req, res) {
     }).catch(function (err) {
         res.error(1002, "增加菜单失败", err);
     });
-};
+});
 
-var del = function (req, res) {
+router.post("./del", function (req, res) {
     var id = req.body.id;
 
-    var adminMenu = M("admin.menu");
+    var adminMenu = Models.admin_menu;
     adminMenu.destroy({
         where: {
             id: id
@@ -70,14 +73,14 @@ var del = function (req, res) {
     }).catch(function (err) {
         res.error(1004, "删除菜单失败", err);
     });
-};
+});
 
-var edit = function (req, res) {
+router.post("/edit", function (req, res) {
     var id = req.body.id;
     var name = req.body.name;
     var uri = req.body.uri;
 
-    var adminMenu = M("admin.menu");
+    var adminMenu = Models.admin_menu;
 
     adminMenu.update({name: name, uri: uri}, {
         where: {
@@ -88,10 +91,10 @@ var edit = function (req, res) {
     }).catch(function (err) {
         res.error(1003, "修改菜单失败", err);
     });
-};
+});
 
-var get = function (req, res) {
-    var adminMenu = M("admin.menu");
+router.post("/get", function (req, res) {
+    var adminMenu = Models.admin_menu;
 
     adminMenu.findAll().then(function (data) {
         var relat = {};
@@ -116,13 +119,6 @@ var get = function (req, res) {
         doMenuTree(relat[rootid]);
         res.success(relat[rootid].button);
     });
-};
+});
 
-
-module.exports = {
-    index: index,
-    add: add,
-    del: del,
-    edit: edit,
-    get: get
-};
+module.exports = router;

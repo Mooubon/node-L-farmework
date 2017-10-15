@@ -26,16 +26,24 @@ $(function () {
 
     var url = window.location;
     var element = $('ul.nav a').filter(function () {
-        return this.href == url || url.href.indexOf(this.href) == 0;
+        return this.href == url || url.href.indexOf(this.href.replace("index", '')) == 0;
     }).addClass('active').parent().parent().addClass('in').parent();
     if (element.is('li')) {
         element.addClass('active');
+
+        element = element.parent().addClass('in').parent();
+        if (element.is('li')) {
+            element.addClass('active');
+
+        }
     }
 
     $.ajaxSetup({
         type: "POST",
         dataType: "json",
         complete: function (xhr, status) {
+            if (!xhr) return;
+            if (!xhr.getResponseHeader) return;
             switch (xhr.getResponseHeader("reject")) {
                 case "ok":
                     break;

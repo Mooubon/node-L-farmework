@@ -8,6 +8,19 @@
 <script src="/Public/js/sb-admin-2.js"></script>
 <script src="/Public/js/jquery.md5.js"></script>
 <script src="/Public/js/ejs_production.js"></script>
+<script src="/Public/js/ajaxfileupload.js"></script>
+<script src="/Public/js/jquery.form.js"></script>
+<script src="/Public/js/My97DatePicker/WdatePicker.js"></script>
+<script src="/Public/sb/datatables/media/js/jquery.dataTables.min.js"></script>
+<script src="/Public/sb/datatables/media/js/dataTables.bootstrap.min.js"></script>
+<script src="/Public/js/uedit/ueditor.config.js"></script>
+<script src="/Public/js/uedit/ueditor.all.min.js"></script>
+<script src="/Public/js/Highcharts/js/highcharts.js"></script>
+<script src="/Public/js/Highcharts/js/exporting.js"></script>
+<script src="/Public/js/Highcharts/js/export-excel.js"></script>
+<script src="/Public/js/underscore-min.js"></script>
+
+
 <% include confirm.html %>
 <script>
     var ajaxpath = "/admin";
@@ -31,4 +44,13 @@
             });
         });
     });
+
+    var make_href = function (url) {
+        var href = encodeURIComponent(window.location.href);
+        url += (url.indexOf("?") > -1) ? ("&from=" + href) : ("?from=" + href);
+
+        return url;
+    }
 </script>
+<% include upload.html %>
+<% include highcharts.html %>
